@@ -1,74 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Make Reservation</title>
 
-    <link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Make Reservation</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 
 
 <body>
-    <div class="container">
-        <div class="jumbotron">
-          <h1 style = "text-align:center;"><i class = "fa fa-fire"></i> Hot Restaurant</h1>
-          <hr>
-          <h3 style = "text-align:center;">Make your Reservation!</h3>
-          <br>
-          <div class = "text-center">
-          <a href="/table"><button class="btn btn-primary btn-lg"><span class="fa fa-table"></span> View Tables</button></a>
-          <a href="/restaurant"><button class="btn btn-light btn-lg"><span
-                class="fa fa-home"></span></button></a>
-        </div>
-        </div>
+  <div class="container">
+    <div class="jumbotron">
+      <h1 style="text-align:center;"><i class="fa fa-fire"></i> Hot Restaurant</h1>
+      <hr>
+      <h3 style="text-align:center;">Make your Reservation!</h3>
+      <br>
+      <div class="text-center">
+        <a href="/table"><button class="btn btn-primary btn-lg"><span class="fa fa-table"></span> View
+            Tables</button></a>
+        <a href="/restaurant"><button class="btn btn-light btn-lg"><span class="fa fa-home"></span></button></a>
+      </div>
+    </div>
 
-        <div class="row">
+    <div class="row">
 
-            <div class="col-12">
-      
-              <div class="card">
-                <div class="card-header">
-                  <h3><strong>Table Reservations</strong></h3>
-                </div>
-                <div class="card-body">
-                  <form method="POST" role="form">
-      
-                    <div class="form-group">
-                      <label for="name">Name</label>
-                      <input type="text" class="form-control" id="name">
-                    </div>
-      
-                    <div class="form-group">
-                      <label for="phoneNumber">Phone Number</label>
-                      <input type="text" class="form-control" id="phoneNumber">
-                    </div>
-      
-                    <div class="form-group">
-                      <label for="email">Email</label>
-                      <input type="text" class="form-control" id="email">
-                    </div>
-      
-                    <div class="form-group">
-                      <label for="uniqueId">Unique Id</label>
-                      <input type="text" class="form-control" id="uniqueID">
-                    </div>
-      
-                  </form>
-                  <br>
-                  <div class="text-left">
-                    <button type="submit" class="btn btn-primary btn-md" id="add-btn"></span> Submit</button>
-                  </div>
-                </div>
+      <div class="col-12">
+
+        <div class="card">
+          <div class="card-header">
+            <h3><strong>Table Reservations</strong></h3>
+          </div>
+          <div class="card-body">
+            <form method="POST" role="form">
+
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name">
               </div>
-      
+
+              <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="text" class="form-control" id="phoneNumber">
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email">
+              </div>
+
+              <div class="form-group">
+                <label for="uniqueId">Unique Id</label>
+                <input type="text" class="form-control" id="uniqueID">
+              </div>
+
+            </form>
+            <br>
+            <div class="text-left">
+              <button type="submit" class="btn btn-primary btn-md" id="add-btn"></span> Submit</button>
             </div>
           </div>
-    
+        </div>
+
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      $("#add-btn").on("click", function (event) {
+        event.preventDefault();
+        var newReservation = {
+          customerName: $("#name").val().trim(),
+          phoneNumber: $("#phoneNumber").val().trim(),
+          customerEmail: $("#email").val().trim(),
+          cusomterID: $("#uniqueId").val().trim()
+        };
+
+        $.post("/api/reservation", newReservation)
+          .then(function (data) {
+            console.log("makeReservation.html", data);
+            alert("Your reservation has been made!");
+          });
+      });
+    </script>
+
 </body>
+
 </html>
